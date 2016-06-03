@@ -1,0 +1,45 @@
+#Svformulario {
+	margin:0px auto;
+	padding: 0px;
+}
+#Svformulario .captch span{
+    font-size: 16px;
+    font-style: italic;
+}
+
+
+#Svformulario .form {
+	text-align:left; 
+	font-size:18px; 
+	color:#666;
+}
+
+#Svformulario input.text,textarea.text, select.text {
+	padding:5px; 
+	margin-bottom:10px; 
+}
+
+#Svformulario #result {
+	color:#FF0000;
+	font-style: italic;
+	margin-bottom: 5px
+}
+#Svformulario .message {
+	padding: 5px 3px;
+}
+
+#Svformulario textarea.text {
+	/*height:100px;*/
+	width:90%;
+}
+
+#Svformulario input#submit {
+	padding: 5px 10px;
+	color: #000;
+}
+#Svformulario table , #Svformulario tr td , #Svformulario tr{
+    border: none !important;
+}
+#Svformulario label.lopd {
+font-size: xx-small;
+}
