@@ -35,13 +35,34 @@ class modVersioncocheHelper
 			
 			}
     }
-    
      static function getListQuery($tabla)
-        {
+    {
+		// Cree un objeto de consulta nueva.           
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		//~ // Seleccione algunos campos
+		$query->select($db->quoteName(array('id','nombre')));
+		$query->from($tabla);
+		//~ 
+		//~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
+		// Reset the query using our newly populated query object.
+		$db->setQuery($query);
+		$result = $db->loadAssocList('id', 'nombre');
+		return $result;
+    }
+    
+     static function getListModelos($id_marca)
+	{
                 // Cree un objeto de consulta nueva.           
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
                 //~ // Seleccione algunos campos
+                $tabla= '#__coche_modelos';
+                // Campos
+                // id 
+                // idMarca
+                // nombre
+                
                 $query->select($db->quoteName(array('id','nombre')));
                 $query->from($tabla);
                 //~ 
@@ -50,8 +71,7 @@ class modVersioncocheHelper
 				$db->setQuery($query);
 				$result = $db->loadAssocList('id', 'nombre');
                 return $result;
-                //~ return $query;
-        }
+	}
     
     public static function getAjax()
 	{
@@ -63,14 +83,36 @@ class modVersioncocheHelper
 		//		data[1] -> Contiene string que puede ser:
 		//						marca
 		//						modelo
-		//						version
+		// Version selecciona va otra funcion pero ya con php.
 		
 		$input = JFactory::getApplication()->input;
 		$data  = $input->get('data');
 		// Ahora debemos realizar una busqueda con los datos recibidos.
-		
+		 if ($data[1] == 'marca'){
+			// Buscamos los modelos que sean de la marca seleccionada.
+            $cargamodelos = modVersioncocheHelper::getListModelos($data[0]);
+			$CuantosModelos=count($cargamodelos);
+			// Creamos array script para luego mostrar modelos
+			$varmodelos= '';
+			foreach ($cargamodelos as $id => $modelos) {
+				$varmodelos = $varmodelos .'modelo['.$id.']=';
+				$varmodelos = $varmodelos."'".$modelos."';";
+			
+			}
+			
+			
+			
+		}
+		//~ if ($data[0] = 'modelo'){
+			
+		//~ } 
+		$html = '<script type="text/javascript">'.
+				'var modelo;'.
+				$varmodelos.
+				'</script>';
+				
 
-		return 'Hello Ajax World,'.$data[1].$data[0];
+		return 'Cargo Modelos con Ajax,'.$html. $CuantosModelos;
 	}
     
 }

@@ -30,11 +30,11 @@ $document->addScript(JUri::base().'modules/mod_versioncoche/roe.js'); // Para ll
 $js = <<<JS
 (function ($) {
 	$(document).ready(function(){
-	$('select[name=Minodelo]').change(function(){
+	$('select[name=myMarca]').change(function(){
 		// Creamos array para enviar...
 		
-		var value   = $('select[name=Minodelo]').val(),
-			datos   = [value,'modelo'],
+		var value   = $('select[name=myMarca]').val(),
+			datos   = [value,'marca'],
 		
 			request = {
 					'option' : 'com_ajax',
@@ -80,7 +80,7 @@ $document->addScriptDeclaration($js);
             <div class="marca">
             <label class="marca"><?php echo JText::_('MOD_VERSIONCOCHE_MARCA'); ?></label>
             <!-- Cargamos select con marcas -->
-            <select id="mySelect"  onchange="myFunction()">
+            <select name="myMarca" id="myMarca"  onchange="myFunction()">
 				<option value="0">Seleccione una marca</option>
             <?php
 					foreach ($cargamarcas as $id => $marca) {
@@ -99,9 +99,9 @@ $document->addScriptDeclaration($js);
 						<option value="0">Seleccione una modelo</option>
 
             <?php
-					foreach ($cargamarcas as $id => $marca) {
+					foreach ($cargamodelos as $id => $modelos) {
 						?>
-						<option value= "<?php echo $id; ?>"><?php echo $marca; ?></option>
+						<option value= "<?php echo $id; ?>"><?php echo $modelos; ?></option>
 					
 			<?php 	}
 			?>

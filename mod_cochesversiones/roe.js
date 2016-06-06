@@ -1,5 +1,5 @@
 function myFunction() {
-    var x = document.getElementById("mySelect").value;
+    var x = document.getElementById("myMarca").value;
     document.getElementById("demo").innerHTML = "You selected: " + x;
 }
 function cambioModelo() {
