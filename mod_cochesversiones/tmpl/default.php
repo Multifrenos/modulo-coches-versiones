@@ -30,6 +30,11 @@ $document->addScript(JUri::base().'modules/mod_versioncoche/roe.js'); // Para ll
 $js = <<<JS
 (function ($) {
 	$(document).ready(function(){
+	// Bloqueamos el select de modelos y versiones
+	$("#nodelo").prop('disabled', true);
+	$("#nodelo").prop('disabled', true);
+
+	// Hacemos lógica para cuando cambiemmos marca
 	$('select[name=myMarca]').change(function(){
 		// Creamos array para enviar...
 		
@@ -49,7 +54,7 @@ $js = <<<JS
 				$('.status').html(response);
 			}
 		});
-		return false;
+		CambioMarcas();
 	});
 	});
 })(jQuery)
@@ -80,9 +85,9 @@ $document->addScriptDeclaration($js);
             <div class="marca">
             <label class="marca"><?php echo JText::_('MOD_VERSIONCOCHE_MARCA'); ?></label>
             <!-- Cargamos select con marcas -->
-            <select name="myMarca" id="myMarca"  onchange="myFunction()">
+            <select name="myMarca" id="myMarca">
 				<option value="0">Seleccione una marca</option>
-            <?php
+            <?php	// Al cambiar la selección ejecuta JSOn del principio.
 					foreach ($cargamarcas as $id => $marca) {
 						?>
 						<option value= "<?php echo $id; ?>"><?php echo $marca; ?></option>
@@ -95,30 +100,35 @@ $document->addScriptDeclaration($js);
             <div class="nodelo">
 			<label class="nodelo"><?php echo JText::_('MOD_VERSIONCOCHE_NODELO'); ?></label>
 			            <!-- Cargamos select con marcas -->
-            <select name="Minodelo" id="mySelect"  onchange="cambioModelo()">
+            <select name="Minodelo" id="nodelo"  onchange="cambioModelo()">
 						<option value="0">Seleccione una modelo</option>
+            			<?php // Las opciones se cargan mediante JAVASCRIPT ;?>
 
-            <?php
-					foreach ($cargamodelos as $id => $modelos) {
-						?>
-						<option value= "<?php echo $id; ?>"><?php echo $modelos; ?></option>
-					
-			<?php 	}
-			?>
 			</select>
 	
             </div>
             <!-- Presentacion de version -->
-            <div class="version">
-            <label class="version"><?php echo JText::_('MOD_VERSIONCOCHE_VERSION'); ?></label>
-			<input type="text" name="data">
+            <div class="versiones">
+				<label class="versiones"><?php echo JText::_('MOD_VERSIONCOCHE_VERSION'); ?></label>
+			            <!-- Cargamos select con marcas -->
+				<select name="Miversion" id="versiones"  onchange="cambioModelo()">
+						<?php // Las opciones se cargan mediante JAVASCRIPT ;?>
+						<option value="0">Seleccione una version/acabado</option>
+				</select>
+	
             </div>
-			            
+ 
             <div class ="enviar"></div>
                 <input type="submit"/>
            </div>
               
         </form>
+        <!-- Este div es donde cargamos con JAVASCRITP los modelos y versiones de la marca seleccionada -->
+        <?php 	/*  La carga se hace JSON con la funcion $document.ready que tenemos al principio
+        		 * y la ponemos dentro de este div, por orden nadamas, pero si lo quitas o cambias la clase 
+        		 * dejará de funciona... */
+        ?>
+				
 		<div class="status"></div>
 		<p id="demo"></p>
 		

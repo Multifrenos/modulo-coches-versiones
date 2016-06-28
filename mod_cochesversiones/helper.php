@@ -93,13 +93,19 @@ class modVersioncocheHelper
             $cargamodelos = modVersioncocheHelper::getListModelos($data[0]);
 			$CuantosModelos=count($cargamodelos);
 			// Creamos array script para luego mostrar modelos
-			$varmodelos= '';
+			$Nmodelos= '';
+			$Tmodelos= '';
 			foreach ($cargamodelos as $id => $modelos) {
-				$varmodelos = $varmodelos .'modelo['.$id.']=';
-				$varmodelos = $varmodelos."'".$modelos."';";
-			
+				$Nmodelos = $Nmodelos.$id.',';
+				$Tmodelos = $Tmodelos."'".$modelos."',";
 			}
-			
+			// Ahora tengo quitar la ultima coma puesta , ya que se cierra.
+			$Nmodelos = substr($Nmodelos, 0, -1);
+			$Tmodelos = substr($Tmodelos, 0, -1);
+			// Creamos texto para generar script
+			$HtmlNmodelos = 'modeloId = ['.$Nmodelos.'];';
+			$HtmlTmodelos = 'modelo = ['.$Tmodelos.'];';
+
 			
 			
 		}
@@ -107,8 +113,8 @@ class modVersioncocheHelper
 			
 		//~ } 
 		$html = '<script type="text/javascript">'.
-				'var modelo;'.
-				$varmodelos.
+				$HtmlNmodelos."\n".
+				$HtmlTmodelos.				
 				'</script>';
 				
 
