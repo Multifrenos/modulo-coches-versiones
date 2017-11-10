@@ -1,13 +1,12 @@
 <?php
 
 /*------------------------------------------------------------------------
-# J DContact
+# Soluciones Vigo	
 # ------------------------------------------------------------------------
-# author                Md. Shaon Bahadur
-# copyright             Copyright (C) 2013 j-download.com. All Rights Reserved.
+# author                Ricardo Carpintero Gil
 # @license -            http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-# Websites:             http://www.j-download.com
-# Technical Support:    http://www.j-download.com/request-for-quotation.html
+# Websites:             http://ayuda.svigo.es
+# Technical Support:    info@solucionesvigo.es
 -------------------------------------------------------------------------*/
 defined('_JEXEC') or die;
 require_once __DIR__ . '/helper.php';
@@ -23,6 +22,6 @@ $layout           = $params->get('layout', 'default');
 
 	} else {
 		// Como no tenemos seleccionado ningún coche cargamos marcas	
-		$cargamarcas = modVersioncocheHelper::getListQuery('#__coche_marcas');
+		$cargamarcas = modVersioncocheHelper::getListQuery('#__vehiculo_marcas');
 	}
 	require JModuleHelper::getLayoutPath('mod_versioncoche', $layout);

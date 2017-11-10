@@ -8,7 +8,7 @@ function CambioMarcas() {
 		// Eliminamos opciones de y Volvemos a bloquear select de modelo
 		EliminarModelos();
 		EliminarVersiones();
-		document.getElementById("nodelo").disabled = true;
+		document.getElementById("modelo").disabled = true;
 		document.getElementById("versiones").disabled = true;
 
 	}
@@ -20,7 +20,7 @@ function AddModelos() {
 	// Bucle para crear los modelos para marca seleccionada.
 	
 	for (i=0;i<modelo.length;i++){
-	var x = document.getElementById("nodelo");
+	var x = document.getElementById("modelo");
     var option = document.createElement("option");
     option.text = modelo[i];
     option.value = modeloId[i];
@@ -30,10 +30,10 @@ function AddModelos() {
 function EliminarModelos() {
 	// alert( 'Entramos en funcion de Modelos');
 	// Bucle para crear los modelos para marca seleccionada.
-	var x = document.getElementById("nodelo");
+	var x = document.getElementById("modelo");
 	// alert( ' Numero elementos' + x.length);
 	for (i=0;i<x.length;i++){
-	var x = document.getElementById("nodelo");
+	var x = document.getElementById("modelo");
     x.remove(1);
    	} 
 }

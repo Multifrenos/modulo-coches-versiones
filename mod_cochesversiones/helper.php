@@ -1,14 +1,14 @@
 <?php
 
 /*------------------------------------------------------------------------
-# J DContact
+# Soluciones Vigo	
 # ------------------------------------------------------------------------
-# author                Md. Shaon Bahadur
-# copyright             Copyright (C) 2013 j-download.com. All Rights Reserved.
+# author                Ricardo Carpintero Gil
 # @license -            http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-# Websites:             http://www.j-download.com
-# Technical Support:    http://www.j-download.com/request-for-quotation.html
+# Websites:             http://ayuda.svigo.es
+# Technical Support:    info@solucionesvigo.es
 -------------------------------------------------------------------------*/
+
 
 defined('_JEXEC') or die;
 
@@ -29,8 +29,8 @@ class modVersioncocheHelper
 			// Creo array para devolver resultado
 			$resultado = array() ;
 			$resultado = array('marca'=> $marca,
-								'nodelo' => $email,
-								'version' => $phno,
+								'nodelo' => $nodelo,
+								'version' => $version,
 								);
 			
 			}
@@ -57,19 +57,25 @@ class modVersioncocheHelper
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
                 //~ // Seleccione algunos campos
-                $tabla= '#__coche_modelos';
+                $tabla= '#__vehiculo_modelos';
+                $query = $db->getQuery(true)
+                        ->select('id,nombre')
+                        ->from($tabla)
+						->where('idmarca = ' . $id_marca);
+
+                
                 // Campos
                 // id 
                 // idMarca
                 // nombre
                 
-                $query->select($db->quoteName(array('id','nombre')));
-                $query->from($tabla);
+
                 //~ 
                 //~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
                 // Reset the query using our newly populated query object.
-				$db->setQuery($query);
-				$result = $db->loadAssocList('id', 'nombre');
+                $db->setQuery($query);
+				$result = $db->loadObjectList();
+                
                 return $result;
 	}
     
@@ -91,21 +97,7 @@ class modVersioncocheHelper
 		 if ($data[1] == 'marca'){
 			// Buscamos los modelos que sean de la marca seleccionada.
             $cargamodelos = modVersioncocheHelper::getListModelos($data[0]);
-			$CuantosModelos=count($cargamodelos);
-			// Creamos array script para luego mostrar modelos
-			$Nmodelos= '';
-			$Tmodelos= '';
-			foreach ($cargamodelos as $id => $modelos) {
-				$Nmodelos = $Nmodelos.$id.',';
-				$Tmodelos = $Tmodelos."'".$modelos."',";
-			}
-			// Ahora tengo quitar la ultima coma puesta , ya que se cierra.
-			$Nmodelos = substr($Nmodelos, 0, -1);
-			$Tmodelos = substr($Tmodelos, 0, -1);
-			// Creamos texto para generar script
-			$HtmlNmodelos = 'modeloId = ['.$Nmodelos.'];';
-			$HtmlTmodelos = 'modelo = ['.$Tmodelos.'];';
-
+			
 			
 			
 		}
@@ -113,12 +105,11 @@ class modVersioncocheHelper
 			
 		//~ } 
 		$html = '<script type="text/javascript">'.
-				$HtmlNmodelos."\n".
-				$HtmlTmodelos.				
+				'var modelos ='.json_encode($cargamodelos).
 				'</script>';
 				
 
-		return 'Cargo Modelos con Ajax,'.$html. $CuantosModelos;
+		return $html;
 	}
     
 }
