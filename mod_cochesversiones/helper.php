@@ -78,6 +78,31 @@ class modVersioncocheHelper
                 
                 return $result;
 	}
+	
+	 static function getListVersiones($id_modelo)
+	{
+                // Cree un objeto de consulta nueva.           
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true);
+                //~ // Seleccione algunos campos
+                $tabla= '#__vehiculo_versiones';
+                $query = $db->getQuery(true)
+                        ->select('id,nombre,cv,fecha_inicial,fecha_final')
+                        ->from($tabla)
+						->where('idModelo = ' . $id_modelo);
+
+                
+                            
+
+                //~ 
+                //~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
+                // Reset the query using our newly populated query object.
+                $db->setQuery($query);
+				$result = $db->loadObjectList();
+                //~ 
+                return $result;
+	}
+    
     
     public static function getAjax()
 	{
@@ -93,20 +118,27 @@ class modVersioncocheHelper
 		
 		$input = JFactory::getApplication()->input;
 		$data  = $input->get('data');
+		$html = '<script type="text/javascript">';
+
 		// Ahora debemos realizar una busqueda con los datos recibidos.
 		 if ($data[1] == 'marca'){
 			// Buscamos los modelos que sean de la marca seleccionada.
-            $cargamodelos = modVersioncocheHelper::getListModelos($data[0]);
-			
-			
-			
+            $respuesta = modVersioncocheHelper::getListModelos($data[0]);
+			$html .='var modelos ='.json_encode($respuesta).';';
+
 		}
-		//~ if ($data[0] = 'modelo'){
-			
-		//~ } 
-		$html = '<script type="text/javascript">'.
-				'var modelos ='.json_encode($cargamodelos).
-				'</script>';
+		if ($data[1] = 'modelo'){
+			// Buscamos los modelos que sean de la marca seleccionada.
+            $respuesta = modVersioncocheHelper::getListVersiones($data[0]);
+			$html .='var versiones ='.json_encode($respuesta).';';
+			$html .='var datoentregado ='.$data[0].';';
+
+		}
+		//~ $respuesta = implode(',', $data); 
+				//~ 'var modelos ='.json_encode($respuesta).';'.
+				//~ '// '.$respuesta.
+				
+				$html .='</script>';
 				
 
 		return $html;

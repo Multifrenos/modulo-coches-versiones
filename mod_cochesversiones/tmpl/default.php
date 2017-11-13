@@ -30,33 +30,57 @@ $document->addScript(JUri::base().'modules/mod_versioncoche/roe.js'); // Para ll
 $js = <<<JS
 (function ($) {
 	$(document).ready(function(){
-	// Bloqueamos el select de modelos y versiones
-	$("#nodelo").prop('disabled', true);
-	$("#nodelo").prop('disabled', true);
+		// A la hora cargar bloqueamos el select de modelos y versiones
+		$("#nodelo").prop('disabled', true);
+		$("#versiones").prop('disabled', true);
 
-	// Hacemos lógica para cuando cambiemmos marca
-	$('select[name=myMarca]').change(function(){
-		// Creamos array para enviar...
+		// Hacemos lógica para cuando cambiemmos marca
+		$('select[name=myMarca]').change(function(){
+			// Creamos array para enviar...
+			
+			var value   = $('select[name=myMarca]').val(),
+				datos   = [value,'marca'],
+			
+				request = {
+						'option' : 'com_ajax',
+						'module' : 'versioncoche',
+						'data'   : datos,
+						'format' : 'raw'
+					};
+			$.ajax({
+				type   : 'POST',
+				data   : request,
+				success: function (response) {
+					$('.status').html(response);
+					CambioMarcas();
+				}
+			});
 		
-		var value   = $('select[name=myMarca]').val(),
-			datos   = [value,'marca'],
-		
-			request = {
-					'option' : 'com_ajax',
-					'module' : 'versioncoche',
-					'data'   : datos,
-					'format' : 'raw'
-				};
-		$.ajax({
-			type   : 'POST',
-			data   : request,
-			success: function (response) {
-				$('.status').html(response);
-			}
 		});
-		CambioMarcas();
+		$('select[name=Minodelo]').change(function(){
+			// Creamos array para enviar...
+			
+			var value   = $('select[name=Minodelo]').val(),
+				datos   = [value,'modelo'],
+			
+				request = {
+						'option' : 'com_ajax',
+						'module' : 'versioncoche',
+						'data'   : datos,
+						'format' : 'raw'
+					};
+			$.ajax({
+				type   : 'POST',
+				data   : request,
+				success: function (response) {
+					$('.status').html(response);
+					CambioModelos();
+				}
+			});
+			
+		});
 	});
-	});
+	
 })(jQuery)
 JS;
 
@@ -100,7 +124,7 @@ $document->addScriptDeclaration($js);
             <div class="nodelo">
 			<label class="nodelo"><?php echo JText::_('MOD_VERSIONCOCHE_NODELO'); ?></label>
 			            <!-- Cargamos select con marcas -->
-            <select name="Minodelo" id="nodelo"  onchange="cambioModelo()">
+            <select name="Minodelo" id="nodelo" >
 						<option value="0">Seleccione una modelo</option>
             			<?php // Las opciones se cargan mediante JAVASCRIPT ;?>
 
@@ -118,7 +142,7 @@ $document->addScriptDeclaration($js);
 	
             </div>
  
-            <div class ="enviar"></div>
+            <div class ="enviar">
                 <input type="submit"/>
            </div>
               
