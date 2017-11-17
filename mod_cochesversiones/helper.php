@@ -17,24 +17,27 @@ class modVersioncocheHelper
 	static function preLoadprocess(&$params)
 	{
          
+			$resultado = '' ;
+
 			if($_POST)
 			{
 			/* Debería entrar solo si hay envio ...*/
 			// Tomamos datos de parametros. 
 					        
-            $marca                 =       trim($_REQUEST['marca']);
-            $nodelo                =       trim($_REQUEST['modelo']);
-            $version               =       trim($_REQUEST['version']);
+            //~ $marca                 =       trim($_REQUEST['marca']);
+            //~ $nodelo                =       trim($_REQUEST['modelo']);
+            //~ $version               =       trim($_REQUEST['version']);
 			
 			// Creo array para devolver resultado
-			$resultado = array() ;
-			$resultado = array('marca'=> $marca,
-								'nodelo' => $nodelo,
-								'version' => $version,
-								);
+			$resultado = $_POST['Miversion'];
 			
 			}
+			
+			return $resultado;
+			
     }
+    
+    
      static function getListQuery($tabla)
     {
 		// Cree un objeto de consulta nueva.           
@@ -143,6 +146,33 @@ class modVersioncocheHelper
 
 		return $html;
 	}
+	
+	
+	 static function getVersion($id_version)
+	{
+                // Cree un objeto de consulta nueva.           
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true);
+                //~ // Seleccione algunos campos
+                $tabla= '#__vehiculo_versiones';
+                $query = $db->getQuery(true)
+                        ->select('id,nombre,cv,fecha_inicial,fecha_final')
+                        ->from($tabla)
+						->where('id = ' . $id_version);
+
+                
+                            
+
+                //~ 
+                //~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
+                // Reset the query using our newly populated query object.
+                $db->setQuery($query);
+				$result = $db->loadObjectList();
+                //~ 
+                return $result;
+	}
+   
+	
     
 }
 

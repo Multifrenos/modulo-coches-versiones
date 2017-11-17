@@ -12,20 +12,29 @@
 
 defined('_JEXEC') or die('Restricted access');
 // Datos sescion 
-$session     = JFactory::getSession();
+//~ $session     = JFactory::getSession();
 //~ $sessionData = $session->get($node);
 // No funciona get
 // Si funcion $session ya que crear objecto donde podemos obtener datos de la session...
 // Este punto continuamos cuando funcione la carga en Ajax
 
-	// Creamos variables de parametros de modulo
-	// Aqui deberíamos cargar un array con los datos de 
-	$marca                    =     $cocheselecionado[marca];
-	// Los demas debería ser una carga simultanea es decir cargar al seleccionar , con un javascript...como se hizo en parte administradora del componente.
-    $nodelo                   =     $cocheselecionado[nomelo];
-  	// Los demas debería ser una carga simultanea es decir cargar al seleccionar , con un javascript...como se hizo en parte administradora del componente.
-    $version                  =     $cocheselecionado[version];
+
+	//~ // Creamos variables de parametros de modulo
+	//~ // Aqui deberíamos cargar un array con los datos de 
+	//~ $marca                    =     $cocheselecionado[marca];
+	//~ // Los demas debería ser una carga simultanea es decir cargar al seleccionar , con un javascript...como se hizo en parte administradora del componente.
+    //~ $nodelo                   =     $cocheselecionado[nomelo];
+  	//~ // Los demas debería ser una carga simultanea es decir cargar al seleccionar , con un javascript...como se hizo en parte administradora del componente.
+    //~ $version                  =     $cocheselecionado[version];
 $document = JFactory::getDocument();
+// Ahora identificamos si ya tenemos selecciona un coche.
+//~ $idVehiculos = "12";
+//~ $session->set('SusVehiculos',$idVehiculos);
+//~ echo '<pre>';
+//~ print_r($session->get('SusVehiculos'));
+//~ echo '</pre>';
+
+
 $document->addScript(JUri::base().'modules/mod_versioncoche/roe.js'); // Para llamar a la funcion change
 $js = <<<JS
 (function ($) {
@@ -81,30 +90,31 @@ $js = <<<JS
 		});
 	});
 	
-})(jQuery)
+})(jQuery);
 JS;
 
 $document->addScriptDeclaration($js);
-	
-	
+
+
+//~ echo '<pre>';
+//~ print_r($_POST);
+//~ 
+//~ echo '</pre>';
+
+
+
+
 ?>
-    <link rel="stylesheet" href="modules/mod_versioncoche/tmpl/lib/svformulario.css" media="screen" />
+    <link rel="stylesheet" href="modules/mod_versioncoche/tmpl/lib/versioncoche.css" media="screen" />
+  <div class="SelecionaTuCoche">
+	<div>
+	<a class="btn">Selecciona tu coche</a>
+	</div>
   
-    <div id="SeleccionarVersion">
-		<?php
-		//$app = JFactory::getDocument();
-		/*echo '<pre>';
-		print_r ($module->title);
-		echo '</pre>';
-		* los campos del formulario si le ponemos disabled quedan dehabilitados, 
-		* por lo que si el formulario ya fue envía entonces deberíamos sustituir
-		* required por disabled
-		* Y hay campos que no se deberían mostrar, como
-		* copia y control spam 
-		* */
-		?>
-		
-		<form>
+  
+  
+    <div id="IDSeleccionarVersion">
+		<form id="formSeleccionarCoche" method="post" action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" onsubmit="return validar(this)">
             <!-- Presentacion de marca -->
             <div class="marca">
             <label class="marca"><?php echo JText::_('MOD_VERSIONCOCHE_MARCA'); ?></label>
@@ -158,3 +168,4 @@ $document->addScriptDeclaration($js);
 		
       
     </div>
+</div>
