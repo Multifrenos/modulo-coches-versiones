@@ -16,10 +16,9 @@ $session     = JFactory::getSession();
 $idVehiculo = $session->get('SusVehiculos')
 ?>
     <div class="resultado">
-		<?php echo "Coche seleccionado-- > Deberíamos obtener ID de la version coche y mostralos...".'<br/>';
-			echo "Debería presentar que tiene array $cocheseleccionado";
+		<?php
 			echo '<pre>';
-			print_r($idVehiculo);
+			print_r($vehiculos);
 			echo '</pre>';
 		
 		?>	

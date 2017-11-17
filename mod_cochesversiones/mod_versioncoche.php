@@ -15,10 +15,7 @@ $layout           = $params->get('layout', 'default');
 $ControlSession     = JFactory::getSession();
 $SusVehiculos = $ControlSession->get('SusVehiculos');
 // Si no existe o esta vacio $SusVehiculos damos opcion de mostrar formulario
-echo '<pre>';
-echo '1SusVehiculos'; 
-print_r($SusVehiculos);
-echo '</pre>';
+
 if (!isset($SusVehiculos) || count($SusVehiculos)===0 ){
 	echo 'Entro primer if ';
 	$cargamarcas = modVersioncocheHelper::getListQuery('#__vehiculo_marcas');
@@ -42,12 +39,15 @@ if (!isset($SusVehiculos) || count($SusVehiculos)===0 ){
 		
 	}
 } 
-echo '<pre>';
-echo '2SusVehiculos'; 
-print_r($SusVehiculos);
-echo '</pre>';
+
 // Si existe vehiculo seleccionamo mostramos esta vista.
 if (count($SusVehiculos) >0){
+	// Consultamos los datos de las versiones que hay $SusVehiculos
+	$vehiculos = array();
+	foreach ( $SusVehiculos as $key =>$id_version){
+		$vehiculos = 	modVersioncocheHelper::getVersion($id_version);
+
+	}
 	$layout = 'default_seleccionado';
 }
 

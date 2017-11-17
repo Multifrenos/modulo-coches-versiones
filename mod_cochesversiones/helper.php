@@ -154,11 +154,12 @@ class modVersioncocheHelper
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
                 //~ // Seleccione algunos campos
-                $tabla= '#__vehiculo_versiones';
                 $query = $db->getQuery(true)
-                        ->select('id,nombre,cv,fecha_inicial,fecha_final')
-                        ->from($tabla)
-						->where('id = ' . $id_version);
+                        ->select('v.id,ma.nombre as marca,mo.nombre as modelo,v.nombre,v.cv,v.fecha_inicial,v.fecha_final')
+                        ->from('#__vehiculo_versiones as v')
+                        ->join('left', '#__vehiculo_modelos as mo ON (v.idModelo = mo.id)')
+                        ->join('left', '#__vehiculo_marcas as ma ON (v.idMarca = ma.id)')
+						->where('v.id = ' . $id_version);
 
                 
                             
@@ -166,9 +167,9 @@ class modVersioncocheHelper
                 //~ 
                 //~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
                 // Reset the query using our newly populated query object.
-                //~ $db->setQuery($query);
-				//~ $result = $db->loadObjectList();
-                $result = $query->__toString(); 
+                $db->setQuery($query);
+				$result = $db->loadObjectList();
+                //~ $result = $query->__toString(); 
                 return $result;
 	}
    
