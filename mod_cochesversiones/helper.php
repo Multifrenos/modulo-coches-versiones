@@ -166,9 +166,9 @@ class modVersioncocheHelper
                 //~ 
                 //~ $query->select( array('id', 'nombre'))->from($db->quoteName('#__coche_marcas'));
                 // Reset the query using our newly populated query object.
-                $db->setQuery($query);
-				$result = $db->loadObjectList();
-                //~ 
+                //~ $db->setQuery($query);
+				//~ $result = $db->loadObjectList();
+                $result = $query->__toString(); 
                 return $result;
 	}
    
