@@ -106,9 +106,9 @@ $document->addScriptDeclaration($js);
 
 ?>
     <link rel="stylesheet" href="modules/mod_versioncoche/tmpl/lib/versioncoche.css" media="screen" />
-  <div class="SelecionaTuCoche">
+  <div class="SelecionaVehiculo">
 	<div>
-	<a class="btn">Selecciona tu coche</a>
+	<a class="btn">Selecciona tu vehiculo</a>
 	</div>
   
   
