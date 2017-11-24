@@ -45,8 +45,11 @@ $js = <<<JS
 
 		// Hacemos lógica para cuando cambiemmos marca
 		$('select[name=myMarca]').change(function(){
+			// Eliminamos modelos que hay y desactivo select.
+			EliminarModelos();
+			document.getElementById("nodelo").disabled = true;
+
 			// Creamos array para enviar...
-			
 			var value   = $('select[name=myMarca]').val(),
 				datos   = [value,'marca'],
 			
@@ -132,7 +135,7 @@ $document->addScriptDeclaration($js);
             </div>
 			<!-- Presentacion de modelo -->
             <div class="nodelo">
-			<label class="nodelo"><?php echo JText::_('MOD_VERSIONCOCHE_NODELO'); ?></label>
+			<label class="nodelo"><?php echo JText::_('MOD_VERSIONCOCHE_NODELO'); ?><span id='Numero_modelos'></span></label>
 			            <!-- Cargamos select con marcas -->
             <select name="Minodelo" id="nodelo" >
 						<option value="0">Seleccione una modelo</option>
@@ -143,7 +146,7 @@ $document->addScriptDeclaration($js);
             </div>
             <!-- Presentacion de version -->
             <div class="versiones">
-				<label class="versiones"><?php echo JText::_('MOD_VERSIONCOCHE_VERSION'); ?></label>
+				<label class="versiones"><?php echo JText::_('MOD_VERSIONCOCHE_VERSION'); ?><span id='Numero_versiones'></span></label>
 			            <!-- Cargamos select con marcas -->
 				<select name="Miversion" id="versiones"  onchange="cambioModelo()">
 						<?php // Las opciones se cargan mediante JAVASCRIPT ;?>
