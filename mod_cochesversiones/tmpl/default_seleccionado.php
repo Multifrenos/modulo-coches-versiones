@@ -14,29 +14,33 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 
 $js = <<<JS
-	function BorrarSeleccionVehiculo(){
-		alert ('Eliminamos seleccion de coche');
-		EnviarBorrarSeleccion()
-	}
-	function EnviarBorrarSeleccion(){
-			datos   = ['id','Eliminar'];
-			request = {
-			'option' : 'com_ajax',
-			'module' : 'versioncoche',
-			'data'   : datos,
-			'format' : 'raw'
-			};
-			$.ajax({
-				type   : 'POST',
-				data   : request,
-				success: function (response) {
-					console.log (' Debería cargar formulario' );
-					alert('Debería cargar formulario');
-					document.location.href='index.php';
 
-				}
+		function BorrarSeleccionVehiculo(){
+			alert ('Eliminamos seleccion de coche');
+			EnviarBorrarSeleccion();
+		}
+		function EnviarBorrarSeleccion(){
+				var value = 
+				datos   = ['id','Eliminar'],
+				request = {
+				'option' : 'com_ajax',
+				'module' : 'versioncoche',
+				'data'   : datos,
+				'format' : 'raw'
+				};
+				(function ($) {
+				$.ajax({
+					type   : 'POST',
+					data   : request,
+					success: function (response) {
+						console.log (' Debería cargar formulario' );
+						alert('Debería cargar formulario');
+						document.location.href='index.php';
+
+					}
+				});
 			});
-	}
+		}
 JS;
 
 $document->addScriptDeclaration($js);
@@ -66,7 +70,7 @@ foreach ($vehiculos as $vehiculo){
 ?>
     <div class="TusVehiculosSeleccionads">
 		<div class="alert alert-info alert-dismissable">
-			  <a href=#" class="close" onclick="BorrarSeleccionVehiculo()" aria-label="close">&times;</a>
+			  <a href="#" class="close" onclick="BorrarSeleccionVehiculo()" aria-label="close">&times;</a>
 			  <?php echo $html;?>
 			  
 		<form id="formSeleccionarCoche" method="post" action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" onsubmit="return validar(this)">
