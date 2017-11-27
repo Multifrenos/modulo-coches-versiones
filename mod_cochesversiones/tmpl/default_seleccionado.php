@@ -14,32 +14,28 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 
 $js = <<<JS
-
 		function BorrarSeleccionVehiculo(){
-			alert ('Eliminamos seleccion de coche');
+			//~ alert ('Eliminamos seleccion de coche');
 			EnviarBorrarSeleccion();
 		}
 		function EnviarBorrarSeleccion(){
-				var value = 
-				datos   = ['id','Eliminar'],
+				datos   = ['id','Eliminar'];
 				request = {
 				'option' : 'com_ajax',
 				'module' : 'versioncoche',
 				'data'   : datos,
 				'format' : 'raw'
 				};
-				(function ($) {
-				$.ajax({
+				jQuery.ajax({
 					type   : 'POST',
 					data   : request,
 					success: function (response) {
 						console.log (' Debería cargar formulario' );
-						alert('Debería cargar formulario');
+						//~ alert('Debería cargar formulario');
 						document.location.href='index.php';
 
 					}
 				});
-			});
 		}
 JS;
 
