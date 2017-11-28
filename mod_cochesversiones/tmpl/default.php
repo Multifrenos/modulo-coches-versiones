@@ -119,7 +119,7 @@ $document->addScriptDeclaration($js);
     <div id="IDSeleccionarVersion">
 		<form id="formSeleccionarCoche" method="post" action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" onsubmit="return validar(this)">
             <!-- Presentacion de marca -->
-            <div class="marca">
+            <div class="form-group marca">
             <label class="marca"><?php echo JText::_('MOD_VERSIONCOCHE_MARCA'); ?></label>
             <!-- Cargamos select con marcas -->
             <select name="myMarca" id="myMarca">
@@ -134,7 +134,7 @@ $document->addScriptDeclaration($js);
 			</select>
             </div>
 			<!-- Presentacion de modelo -->
-            <div class="nodelo">
+            <div class="form-group nodelo">
 			<label class="nodelo"><?php echo JText::_('MOD_VERSIONCOCHE_NODELO'); ?><span id='Numero_modelos'></span></label>
 			            <!-- Cargamos select con marcas -->
             <select name="Minodelo" id="nodelo" >
@@ -145,7 +145,7 @@ $document->addScriptDeclaration($js);
 	
             </div>
             <!-- Presentacion de version -->
-            <div class="versiones">
+            <div class="form-group versiones">
 				<label class="versiones"><?php echo JText::_('MOD_VERSIONCOCHE_VERSION'); ?><span id='Numero_versiones'></span></label>
 			            <!-- Cargamos select con marcas -->
 				<select name="Miversion" id="versiones"  onchange="cambioModelo()">
@@ -155,8 +155,8 @@ $document->addScriptDeclaration($js);
 	
             </div>
  
-            <div class ="enviar">
-                <input type="submit"/>
+            <div class ="form-group enviar">
+                <input class="addtocart-button" type="submit"/>
            </div>
               
         </form>

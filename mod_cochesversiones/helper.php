@@ -129,7 +129,6 @@ class modVersioncocheHelper
 			$ControlSession     = JFactory::getSession();
 			$vacio = array();
 			$ControlSession->set('SusVehiculos',$vacio);
-			error_log('Entro');
 			return;
 			
 		}else {

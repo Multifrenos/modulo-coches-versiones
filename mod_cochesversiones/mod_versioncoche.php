@@ -17,7 +17,6 @@ $SusVehiculos = $ControlSession->get('SusVehiculos');
 // Si no existe o esta vacio $SusVehiculos damos opcion de mostrar formulario
 
 if (!isset($SusVehiculos) || count($SusVehiculos)===0 ){
-	echo 'Entro primer if ';
 	$cargamarcas = modVersioncocheHelper::getListQuery('#__vehiculo_marcas');
 	
    // Con $svform recuperamos los datos devueltos por helper
@@ -33,7 +32,6 @@ if (!isset($SusVehiculos) || count($SusVehiculos)===0 ){
    if (count($datosversion)>0){
 	    // Obtenemos vehiculos seleccionada , ya que la idea es poder seleccionar varios coches.
 		$ids_versiones[] = $id_version;
-		echo ' Entro en if para añadir a session';
 		$ControlSession->set('SusVehiculos',$ids_versiones);
 		$SusVehiculos = $ControlSession->get('SusVehiculos');
 		

@@ -51,9 +51,14 @@ $document->addScriptDeclaration($js);
 //~ $idVehiculo = $session->get('SusVehiculos');
 // Montamos vehiculos a mostrar.
 foreach ($vehiculos as $vehiculo){
-	$html = '<h3>'.$vehiculo->marca.' '.$vehiculo->modelo.' '.$vehiculo->nombre.'</h3>';
-	$html .= '<table class="table"><theader><th>Cilindrada</th><th>Cv/KW</th><th>NºCilindros</th><th>Inicio Fabricación</th><th>Fin Fabricación</th></theader>'
+	
+	$html = '<table class="table"><theader><th></th><th>Cilindrada</th><th>Cv/KW</th><th>NºCilindros</th><th>Inicio Fabricación</th><th>Fin Fabricación</th></theader>'
 			.'<tbody><tr>'
+			.'<td>'
+			.'<span title="'.$vehiculo->id.'" class=" glyphicon glyphicon-info-sign"></span> '
+			.$vehiculo->marca.' '.$vehiculo->modelo.' '.$vehiculo->nombre
+			
+			.'</td>'
 			.'<td>'.$vehiculo->cm3.'</td>'
 			.'<td>'.$vehiculo->cv.'cv / '.$vehiculo->kw.'Kw</td>'
 			.'<td>'.$vehiculo->ncilindros.'</td>'
@@ -64,18 +69,18 @@ foreach ($vehiculos as $vehiculo){
 			.'</table>';
 }
 ?>
-    <div class="TusVehiculosSeleccionads">
-		<div class="alert alert-info alert-dismissable">
-			  <a href="#" class="close" onclick="BorrarSeleccionVehiculo()" aria-label="close">&times;</a>
+    <div class="col-md-12 TusVehiculosSeleccionads">
+		  <a href="#" class="close" onclick="BorrarSeleccionVehiculo()" aria-label="close">&times;</a>
+			 <h3>Vehículos seleccionados</h3>
+				<div class="alert alert-info alert-dismissable">
 			  <?php echo $html;?>
-			  
+				</div>
 		<form id="formSeleccionarCoche" method="post" action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" onsubmit="return validar(this)">
 		</form>
 		<?php
-			echo '<pre>';
-			print_r($SusVehiculos);
-			echo '</pre>';
+			//~ echo '<pre>';
+			//~ print_r($SusVehiculos);
+			//~ echo '</pre>';
 		
 		?>	
-		</div>
     </div>
