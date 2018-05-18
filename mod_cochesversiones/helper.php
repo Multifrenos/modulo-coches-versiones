@@ -29,8 +29,12 @@ class modVersioncocheHelper
             //~ $version               =       trim($_REQUEST['version']);
 			
 			// Creo array para devolver resultado
-			$resultado = $_POST['Miversion'];
-			
+				if ($_POST['Miversion']){
+					$resultado = $_POST['Miversion'];
+					$url = JURI::base();
+					header( 'Location: ' . $url );
+				}
+				
 			}
 			
 			return $resultado;
